@@ -92,16 +92,16 @@ No account or credentials are required. If WebMCP is unavailable, the footer ide
 
 ## Official form answers
 
-- **Submitter Type:** Individual
-- **Country:** Canada
+- **Submitter Type:** TODO — choose Individual, Team of Individuals, or Organization
+- **Country:** TODO — enter the country of residence for each team member
 - **App Status:** New
 - **Live URL:** https://webmcp-lemon.vercel.app
 - **Testing instructions:** Use the instructions above; no credentials required.
 - **Public repo URL:** https://github.com/jameshjs/the-last-signal-webmcp
 - **Agent/client tested:** TODO — confirm after testing in a WebMCP-capable ChatGPT browser or Chrome Model Context Tool Inspector.
 - **AI tools leveraged:** OpenAI Codex for product planning, implementation, debugging, browser testing, documentation, and deployment assistance.
-- **Level of learning:** Significant
-- **AI value for career:** Yes
+- **Level of learning:** TODO — choose None, Moderate, or Significant
+- **AI value for career:** TODO — choose Yes or No
 
 ## Demo video plan — target 2:35
 
