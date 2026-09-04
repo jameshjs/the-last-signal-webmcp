@@ -1,5 +1,9 @@
 # The Last Signal
 
+<p align="center">
+  <img src="assets/the-last-signal-logo.png" alt="The Last Signal logo" width="280" />
+</p>
+
 **The Last Signal** is a cooperative escape room for one human and one browser agent. The human interprets the environment and controls physical authorization points while the agent operates the station through dynamically discovered [WebMCP](https://developer.chrome.com/docs/ai/webmcp) tools.
 
 The project was built for [The WebMCP Challenge](https://webmcp.devpost.com/).
