@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#070b10" />
+    <meta
+      name="description"
+      content="The Last Signal — a cooperative WebMCP escape room for one human and one browser agent."
+    />
+    <title>The Last Signal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div id="app" class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="station-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div>
+            <p class="eyebrow">Asteria relay · station 04</p>
+            <h1>The Last Signal</h1>
+          </div>
+        </div>
+        <div class="mission-readouts">
+          <div class="status-chip" id="mission-status"><i></i><span>Emergency mode</span></div>
+          <div class="timer-block">
+            <span>Evacuation window</span>
+            <strong id="timer">12:00</strong>
+          </div>
+          <button class="icon-button" id="reset-button" aria-label="Reset mission" title="Reset mission">↻</button>
+        </div>
+      </header>
+
+      <main class="mission-layout">
+        <section class="room-card panel" aria-label="Station control room">
+          <div class="room-heading">
+            <div>
+              <p class="eyebrow">Control room</p>
+              <h2 id="room-title">Emergency lighting only</h2>
+            </div>
+            <div class="room-progress" aria-label="Mission progress">
+              <span class="progress-segment active" data-progress="power"></span>
+              <span class="progress-segment" data-progress="signal"></span>
+              <span class="progress-segment" data-progress="vault"></span>
+              <span class="progress-segment" data-progress="escape"></span>
+            </div>
+          </div>
+
+          <div class="room-scene emergency" id="room-scene">
+            <div class="stars" aria-hidden="true"></div>
+            <div class="window-view" aria-hidden="true">
+              <div class="planet"></div>
+              <div class="window-grid"></div>
+            </div>
+            <button class="hotspot power-hotspot active" data-panel="power" aria-label="Open power distribution panel">
+              <span class="hotspot-light"></span>
+              <span class="hotspot-label">Power grid <small id="power-room-status">Fault</small></span>
+            </button>
+            <button class="hotspot signal-hotspot locked" data-panel="signal" aria-label="Open communications console">
+              <span class="signal-wave" aria-hidden="true">⌁⌁⌁</span>
+              <span class="hotspot-label">Signal array <small id="signal-room-status">Offline</small></span>
+            </button>
+            <button class="hotspot vault-hotspot locked" data-panel="vault" aria-label="Open command vault">
+              <span class="vault-wheel" aria-hidden="true">✣</span>
+              <span class="hotspot-label">Command vault <small id="vault-room-status">Sealed</small></span>
+            </button>
+            <button class="hotspot exit-hotspot locked" data-panel="escape" aria-label="Open evacuation airlock controls">
+              <span class="door-lines" aria-hidden="true"></span>
+              <span class="hotspot-label">Evacuation airlock <small id="escape-room-status">Locked</small></span>
+            </button>
+            <button class="wall-clue" data-panel="clue" aria-label="Inspect maintenance placard">
+              <span>ASTERIA-IV</span>
+              <strong>WAKE → CALL → COMMAND → DEPART</strong>
+            </button>
+            <div class="floor-glow" aria-hidden="true"></div>
+          </div>
+
+          <div class="room-footer">
+            <p><span class="key-hint">Tip</span> Select a station system, or ask your agent to inspect the room.</p>
+            <div class="connection-status" id="connection-status"><i></i><span>Checking WebMCP…</span></div>
+          </div>
+        </section>
+
+        <aside class="side-stack">
+          <section class="panel objective-card">
+            <p class="eyebrow">Current objective</p>
+            <div class="objective-line">
+              <span class="objective-number" id="objective-number">01</span>
+              <div>
+                <h2 id="objective-title">Restore station power</h2>
+                <p id="objective-description">Bring life support and communications online without overloading the grid.</p>
+              </div>
+            </div>
+            <div class="objective-actions">
+              <button class="text-button" id="hint-button">Request a hint <span>→</span></button>
+              <span id="hints-count">0 hints used</span>
+            </div>
+          </section>
+
+          <section class="panel inventory-card">
+            <div class="section-title">
+              <p class="eyebrow">Recovered items</p>
+              <span id="inventory-count">0 / 2</span>
+            </div>
+            <div class="inventory-grid" id="inventory-grid">
+              <div class="empty-inventory">No items recovered</div>
+            </div>
+          </section>
+
+          <section class="panel log-card">
+            <div class="section-title">
+              <p class="eyebrow">Shared mission log</p>
+              <span class="live-indicator"><i></i> Live</span>
+            </div>
+            <div class="activity-log" id="activity-log" aria-live="polite"></div>
+          </section>
+        </aside>
+      </main>
+
+      <section class="system-drawer panel open" id="system-drawer" aria-live="polite">
+        <div class="drawer-header">
+          <div>
+            <p class="eyebrow" id="drawer-eyebrow">System 01</p>
+            <h2 id="drawer-title">Power distribution</h2>
+          </div>
+          <button class="icon-button" id="close-drawer" aria-label="Close system panel">×</button>
+        </div>
+        <div id="drawer-content"></div>
+      </section>
+
+      <div class="toast-region" id="toast-region" aria-live="assertive"></div>
+
+      <div class="mission-overlay" id="intro-overlay">
+        <div class="overlay-card">
+          <p class="eyebrow">Incoming distress protocol</p>
+          <h2>The station is failing.<br />You are not alone.</h2>
+          <p>
+            Restore the Asteria relay and reach the evacuation shuttle. Work with a browser agent:
+            you interpret the room; it can operate the station through WebMCP.
+          </p>
+          <div class="prompt-card">
+            <span>Suggested agent prompt</span>
+            <code id="suggested-prompt">Help me inspect this station, solve each system, and escape. Explain important findings, but ask before entering final authorization codes.</code>
+            <button id="copy-prompt">Copy</button>
+          </div>
+          <button class="primary-button" id="begin-mission">Begin mission <span>→</span></button>
+        </div>
+      </div>
+
+      <div class="mission-overlay hidden" id="victory-overlay">
+        <div class="overlay-card victory-card">
+          <div class="victory-orbit"><span></span></div>
+          <p class="eyebrow">Evacuation confirmed</p>
+          <h2>Signal received.<br />Airlock released.</h2>
+          <p>You and your agent restored the station and reached the shuttle.</p>
+          <div class="score-grid">
+            <div><span>Time remaining</span><strong id="score-time">00:00</strong></div>
+            <div><span>Agent actions</span><strong id="score-agent">0</strong></div>
+            <div><span>Human actions</span><strong id="score-human">0</strong></div>
+            <div><span>Hints used</span><strong id="score-hints">0</strong></div>
+          </div>
+          <button class="primary-button" id="play-again">Run mission again <span>↻</span></button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
