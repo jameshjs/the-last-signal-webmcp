@@ -4,6 +4,8 @@
 
 The project was built for [The WebMCP Challenge](https://webmcp.devpost.com/).
 
+**[Play the live game](https://webmcp-lemon.vercel.app)**
+
 ## The experience
 
 An evacuation shuttle leaves the failing Asteria relay in twelve minutes. Together, the human and agent must:

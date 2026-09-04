@@ -13,7 +13,7 @@ A cooperative escape room where one human and one browser agent can only survive
 ## Links
 
 - Live application: https://webmcp-lemon.vercel.app
-- Public repository: **TODO — publish to GitHub**
+- Public repository: https://github.com/jameshjs/the-last-signal-webmcp
 - Demo video: **TODO — upload a public YouTube video under three minutes**
 
 ## Submission description
@@ -97,7 +97,7 @@ No account or credentials are required. If WebMCP is unavailable, the footer ide
 - **App Status:** New
 - **Live URL:** https://webmcp-lemon.vercel.app
 - **Testing instructions:** Use the instructions above; no credentials required.
-- **Public repo URL:** TODO
+- **Public repo URL:** https://github.com/jameshjs/the-last-signal-webmcp
 - **Agent/client tested:** TODO — confirm after testing in a WebMCP-capable ChatGPT browser or Chrome Model Context Tool Inspector.
 - **AI tools leveraged:** OpenAI Codex for product planning, implementation, debugging, browser testing, documentation, and deployment assistance.
 - **Level of learning:** Significant
@@ -163,8 +163,7 @@ No account or credentials are required. If WebMCP is unavailable, the footer ide
 - [x] MIT license
 - [x] Imperative `document.modelContext.registerTool()` implementation
 - [x] Browser-tested manual game flow
-- [ ] Public GitHub repository
+- [x] Public GitHub repository with detected MIT license
 - [ ] Confirm WebMCP runtime test client
 - [ ] Public YouTube demo under three minutes with audio
 - [ ] Devpost project entry and final submission
-
